@@ -3,11 +3,11 @@ const routes = require('./controllers/index.js');
 //importing sequelize connection that is in connection.js
 const sequelize = require('./config/connection');
 
-// //setup handlebars as template engine
-// const exphbs = require('express-handlebars');
-// //helper function
-// const helpers = require('./utils/helpers');
-// const hbs = exphbs.create({ helpers });
+//setup handlebars as template engine
+const exphbs = require('express-handlebars');
+//helper function
+const helpers = require('./utils/helpers');
+const hbs = exphbs.create({ helpers });
 
 //make public folder available
 const path = require('path');
@@ -22,7 +22,7 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
-  secret: 'Secret',
+  secret: 'Super secret secret',
   cookie: {},
   resave: false,
   saveUninitialized: true,
@@ -38,12 +38,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //takes the contents of the public folder and makes them static
 app.use(express.static(path.join(__dirname, 'public')));
-// //set up handlebars
-// app.engine('handlebars', hbs.engine);
-// app.set('view engine', 'handlebars');
+//set up handlebars
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
-// // turn on routes
-// app.use(routes);
+// turn on routes
+app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening at http://localhost:3001'));
