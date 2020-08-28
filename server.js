@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = require('./controllers/index.js');
+const routes = require('./controllers');
 //importing sequelize connection that is in connection.js
 const sequelize = require('./config/connection');
 
@@ -45,6 +45,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // // turn on routes
 // app.use(routes);
 
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => console.log('Now listening at http://localhost:3001'));
 }).catch(err => console.log(err))
