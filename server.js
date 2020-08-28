@@ -1,25 +1,24 @@
-const express = require('express');
-const routes = require('./controllers/index.js');
-//importing sequelize connection that is in connection.js
-const sequelize = require('./config/connection');
-
-// //setup handlebars as template engine
-// const exphbs = require('express-handlebars');
-// //helper function
-// const helpers = require('./utils/helpers');
-// const hbs = exphbs.create({ helpers });
-
-//make public folder available
 const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+//connects session to database
+const SequelizeStore = require ('connect-session-sequelize')(session.Store);
 
-const app = express();
+const sequelize = require('./config/connection');
+const routes = require('./controllers');
+
 const PORT = process.env.PORT || 3001;
 
-//to use express-session and sequalize-store
-//creates session
-const session = require('express-session');
-//connects session to database
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+const hbs = exphbs.create({});
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 const sess = {
   secret: 'Secret',
@@ -30,21 +29,10 @@ const sess = {
     db: sequelize
   })
 };
-
 app.use(session(sess));
-//end session/ sequelize store
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-//takes the contents of the public folder and makes them static
-app.use(express.static(path.join(__dirname, 'public')));
-// //set up handlebars
-// app.engine('handlebars', hbs.engine);
-// app.set('view engine', 'handlebars');
-
-// // turn on routes
-// app.use(routes);
+app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening at http://localhost:3001'));
-}).catch(err => console.log(err))
+}).catch(err => console.log(err));
