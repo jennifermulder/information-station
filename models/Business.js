@@ -1,13 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-// create our Post model
-class Post extends Model {}
+// create our Business model
+class Business extends Model { }
 
-
-
-// create fields/columns for Post model
-Post.init(
+// create fields/columns for Business model
+Business.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -15,34 +13,22 @@ Post.init(
       primaryKey: true,
       autoIncrement: true
     },
-    title: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    // post_url: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   validate: {
-    //     isURL: true
-    //   }
-    // },
-    post_text: {
+    business_url: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isURL: true
+      }
     },
-    //establish relationship between post and user by referencing user model. user id defined as foreign key
+    //to show who added the business? might not need this
     user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'user',
-        key: 'id'
-      }
-    },
-    //establish relationship between post and business
-    business_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'business',
         key: 'id'
       }
     },
@@ -58,8 +44,8 @@ Post.init(
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: 'post'
+    modelName: 'business'
   }
 );
 
-module.exports = Post;
+module.exports = Business;
