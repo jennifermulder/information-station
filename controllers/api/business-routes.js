@@ -13,16 +13,17 @@ router.get('/', (req, res) => {
             
         ],
         order: [['created_at', 'DESC']],
-        // include: [
-        //     {
-        //         model: Post,
-        //         attributes: [
-        //             'title',
-        //             'post_text',
-        //             'safety_measurs'
-        //         ]
-        //     }
-        // ]
+
+        include: [
+            {
+                model: Post,
+                attributes: [
+                    'title',
+                    'post_text',
+                    'safety_measurs'
+                ]
+            }
+        ]
     })
         .then(dbBusinessData => res.json(dbBusinessData))
         .catch(err => {
@@ -40,9 +41,10 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
-            
-            'title',
-            'post_text',
+
+            'name',
+            'business_url',
+
             'created_at'
         ],
         include: [
@@ -54,6 +56,11 @@ router.get('/:id', (req, res) => {
                     'post_text',
                     'safety_measurs'
                 ]
+
+            },
+            {
+                model: User,
+                attributes: ['username']
             }
         ]
     })
