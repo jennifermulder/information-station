@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { Post, User, Business } = require('../../models');
 const sequelize = require('../../config/connection');
-
 // GET all posts
 router.get('/', (req, res) => {
     Post.findAll({
@@ -10,7 +9,6 @@ router.get('/', (req, res) => {
             'post_url',
             'title',
             'created_at'
-            
         ],
         order: [['created_at', 'DESC']],
         include: [
@@ -23,7 +21,6 @@ router.get('/', (req, res) => {
                 attributes: ['name']
             },
         ],
-        
     })
         .then(dbPostData => res.json(dbPostData))
         .catch(err => {
@@ -31,8 +28,6 @@ router.get('/', (req, res) => {
             res.status(500).json(err);
         });
 });
-
-
 // GET a Single Post
 router.get('/:id', (req, res) => {
     Post.findOne({
@@ -68,8 +63,6 @@ router.get('/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
-
-
 // Create a Post
 router.post('/', (req, res) => {
     // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
@@ -86,8 +79,6 @@ router.post('/', (req, res) => {
             res.status(500).json(err);
         });
 });
-
-
 // Update a Post's Title
 router.put('/:id', (req, res) => {
     Post.update(
@@ -112,7 +103,6 @@ router.put('/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
-
 // Delete a Post
 router.delete('/:id', (req, res) => {
     Post.destroy({
@@ -132,5 +122,4 @@ router.delete('/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
-
 module.exports = router;

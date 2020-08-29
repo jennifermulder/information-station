@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
             
         ],
         order: [['created_at', 'DESC']],
+
         include: [
             {
                 model: Post,
@@ -40,9 +41,10 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
-            
+
             'name',
             'business_url',
+
             'created_at'
         ],
         include: [
@@ -54,6 +56,7 @@ router.get('/:id', (req, res) => {
                     'post_text',
                     'safety_measurs'
                 ]
+
             },
             {
                 model: User,
