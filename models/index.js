@@ -89,4 +89,4 @@ Post.belongsTo(Business, {
 
 
 //exporting object with user model as a property
-module.exports = { User, Post, Business, Comment };
+module.exports = { User, Post, Business };

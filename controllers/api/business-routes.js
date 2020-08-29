@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
                 attributes: [
                     'title',
                     'post_text',
-                    'safety_measurs'
+                    
                 ]
             }
         ]
