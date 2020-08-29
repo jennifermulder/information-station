@@ -1,89 +1,98 @@
 const router = require('express').Router();
 const { Post, User, Business } = require('../../models');
 const sequelize = require('../../config/connection');
+
 // GET all posts
 router.get('/', (req, res) => {
-    Post.findAll({
+    Business.findAll({
         attributes: [
             'id',
-            'post_url',
-            'title',
+            'name',
+            'business_url',
             'created_at'
+            
         ],
         order: [['created_at', 'DESC']],
-        include: [
-            {
-                model: User,
-                attributes: ['username']
-            },
-            {
-                model: Business,
-                attributes: ['name']
-            },
-        ],
+        // include: [
+        //     {
+        //         model: Post,
+        //         attributes: [
+        //             'title',
+        //             'post_text',
+        //             'safety_measurs'
+        //         ]
+        //     }
+        // ]
     })
-        .then(dbPostData => res.json(dbPostData))
+        .then(dbBusinessData => res.json(dbBusinessData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
+
+
 // GET a Single Post
 router.get('/:id', (req, res) => {
-    Post.findOne({
+    Business.findOne({
         where: {
             id: req.params.id
         },
         attributes: [
             'id',
+            
             'title',
             'post_text',
             'created_at'
         ],
         include: [
             {
-                model: User,
-                attributes: ['username']
-            },
-            {
-                model: Business,
-                attributes: ['name']
+                model: Post,
+                attributes: 
+                [
+                    'title',
+                    'post_text',
+                    'safety_measurs'
+                ]
             }
         ]
     })
-        .then(dbPostData => {
-            if (!dbPostData) {
+        .then(dbBusinessData => {
+            if (!dbBusinessData) {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
-            res.json(dbPostData);
+            res.json(dbBusinessData);
         })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
+
+
 // Create a Post
 router.post('/', (req, res) => {
     // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
-    Post.create({
-        title: req.body.title,
-        post_text: req.body.post_text,
+    Business.create({
+        name: req.body.name,
+        business_url: req.body.business_url,
         user_id: req.body.user_id,
-        business_id: req.body.business_id,
-        safetyMeasures: req.body.safetyMeasures
+        safety_measures: req.body.safety_measures
     })
-        .then(dbPostData => res.json(dbPostData))
+        .then(dbBusinessData => res.json(dbBusinessData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
-// Update a Post's Title
+
+
+// Update a Post's Title ***IN PROGRESS**
 router.put('/:id', (req, res) => {
-    Post.update(
+    Business.update(
         {
-            title: req.body.title
+            name: req.body.name
         },
         {
             where: {
@@ -91,35 +100,37 @@ router.put('/:id', (req, res) => {
             }
         }
     )
-        .then(dbPostData => {
-            if (!dbPostData) {
+        .then(dbBusinessData => {
+            if (!dbBusinessData) {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
-            res.json(dbPostData);
+            res.json(dbBusinessData);
         })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
+
 // Delete a Post
 router.delete('/:id', (req, res) => {
-    Post.destroy({
+    Business.destroy({
         where: {
             id: req.params.id
         }
     })
-        .then(dbPostData => {
-            if (!dbPostData) {
+        .then(dbBusinessData => {
+            if (!dbBusinessData) {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
-            res.json(dbPostData);
+            res.json(dbBusinessData);
         })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
+
 module.exports = router;

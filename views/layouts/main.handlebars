@@ -1,4 +1,4 @@
-{{!-- template for the main html, body gets updated with each type of page to be displayed (dashboard, homepage, login, singlepost) --}}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,15 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
+
   <title>Information Station</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
-
-
-    
   <div class="wrapper">
     <header>
       <h1>
@@ -30,11 +27,13 @@
         <a href="/login">login</a>
         {{/if}}
       </nav>
+      
     </header>
     <main>
       {{{ body }}}
     </main>
     <footer>
+
         <footer class="page-footer light-blue">
       <div class="container">
         <div class="row">
@@ -58,6 +57,12 @@
   {{#if loggedIn}}
   <script src="/javascript/logout.js"></script>
   {{/if}}
+
+      Thanks for visiting!
+    </footer>
+  </div>
+
+
 </body>
 
 </html>
