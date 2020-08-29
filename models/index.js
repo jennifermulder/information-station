@@ -1,41 +1,20 @@
-//collecting from the user model and exporting user data
-const User = require("./User");
-const Post = require("./Post");
-// const Vote = require('./Vote');
-const Business = require('./Business');
+const router = require('express').Router();
+const userRoutes = require('./user-routes.js');
+const postRoutes = require('./post-routes');
+const businessRoutes= require('/business-routes')
+// const commentRoutes = require('./comment-routes'); ******NO COMMENTS AT THIS TIME*****
+const homeRoutes = require('./home-routes.js');
+router.use('/', homeRoutes);
+router.use('/businesses', businessRoutes);
+router.use('/users', userRoutes);
+router.use('/posts', postRoutes);
+// router.use('/comments', commentRoutes);
+module.exports = router;
 
-// create associations
-//user can have many models associated to it
-User.hasMany(Post, {
-  foreignKey: "user_id",
-});
 
-//Post only belongs to user
-Post.belongsTo(User, {
-  foreignKey: "user_id",
-  onDelete: "cascade",
-});
-//********currently NO VOTING */
-// //when user is queried, can see all posts they voted on 
-// User.belongsToMany(Post, {
-//   through: Vote,
-//   //name of the vote model when queried
-//   as: 'voted_posts',
-//   //foreign key in vote
-//   foreignKey: 'user_id'
-// });
 
-// //a post is queried can see all users that voted on it
-// Post.belongsToMany(User, {
-//   through: Vote,
-//   as: 'voted_posts',
-//   //foreign key in vote
-//   foreignKey: 'post_id'
-// });
 
-// Vote.belongsTo(User, {
-//   foreignKey: 'user_id'
-// });
+
 
 // //to see total number of votes on a post
 // Vote.belongsTo(Post, {

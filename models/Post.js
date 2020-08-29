@@ -1,10 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-
 // create our Post model
 class Post extends Model {}
-
-
 // create fields/columns for Post model
 Post.init(
   {
@@ -45,13 +42,14 @@ Post.init(
         key: 'id'
       }
     },
-    safety_measures: {
-      type: DataTypes.BOOLEAN,
-      // references: {
-      //   model: 'safety',
-      //   key: 'id'
-      // }
+    safety_measures: [
+      {maskrequired: {
+        type: DataTypes.BOOLEAN,
+      //
+      },
+      social_distancing: DataTypes.BOOLEAN
     }
+    ]
   },
   {
     sequelize,
@@ -60,5 +58,4 @@ Post.init(
     modelName: 'post'
   }
 );
-
 module.exports = Post;
