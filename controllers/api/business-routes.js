@@ -13,16 +13,16 @@ router.get('/', (req, res) => {
             
         ],
         order: [['created_at', 'DESC']],
-        // include: [
-        //     {
-        //         model: Post,
-        //         attributes: [
-        //             'title',
-        //             'post_text',
-        //             'safety_measurs'
-        //         ]
-        //     }
-        // ]
+        include: [
+            {
+                model: Post,
+                attributes: [
+                    'title',
+                    'post_text',
+                    'safety_measurs'
+                ]
+            }
+        ]
     })
         .then(dbBusinessData => res.json(dbBusinessData))
         .catch(err => {
@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 });
 
 
-// GET a Single Post
+// GET a Single Business
 router.get('/:id', (req, res) => {
     Business.findOne({
         where: {

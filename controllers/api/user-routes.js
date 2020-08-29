@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post /*, Vote */} = require("../../models");
+const { User, Post, Comment} = require("../../models");
 
 // GET /api/users
 router.get('/', (req, res) => {
@@ -21,13 +21,13 @@ router.get('/:id', (req, res) => {
             id: req.params.id
         },
         
-        // include: [
-        //     {
-        //         model: Post,
-        //         attributes: ['id', 'title', 'post_url', 'created_at']
-        //     },
+        include: [
+            {
+                model: Post,
+                attributes: ['id', 'title', 'created_at']
+            },
             
-        // ]
+        ]
     })
         .then(dbUserData => {
             if (!dbUserData) {
