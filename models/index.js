@@ -52,6 +52,41 @@ Post.belongsTo(User, {
 
 // ******CURRENTLY NO COMMENTS********
 
+// //when user is queried, can see all posts they voted on 
+// User.belongsToMany(Post, {
+//   through: Vote,
+//   //name of the vote model when queried
+//   as: 'voted_posts',
+//   //foreign key in vote
+//   foreignKey: 'user_id'
+// });
+
+// //a post is queried can see all users that voted on it
+// Post.belongsToMany(User, {
+//   through: Vote,
+//   as: 'voted_posts',
+//   //foreign key in vote
+//   foreignKey: 'post_id'
+// });
+
+// Vote.belongsTo(User, {
+//   foreignKey: 'user_id'
+// });
+
+// //to see total number of votes on a post
+// Vote.belongsTo(Post, {
+//   foreignKey: 'post_id'
+// });
+
+// User.hasMany(Vote, {
+//   foreignKey: 'user_id'
+// });
+
+// Post.hasMany(Vote, {
+//   foreignKey: 'post_id'
+// });
+
+
 //a comment can only have one user
 // Comment.belongsTo(User, {
 //   foreignKey: 'user_id'
@@ -90,3 +125,25 @@ Post.belongsTo(Business, {
 
 //exporting object with user model as a property
 module.exports = { User, Post, Business, Comment };
+
+//BUSINESS
+//user can have many models associated to it
+User.hasMany(Business, {
+  foreignKey: "user_id",
+});
+
+//business can have many posts associated to it
+Business.hasMany(Post, {
+  foreignKey: "business_id",
+});
+
+//Post only belongs to user
+Post.belongsTo(Business, {
+  foreignKey: "business_id",
+  onDelete: "cascade",
+});
+
+
+//exporting object with user model as a property
+module.exports = { User, Post, Business, Comment };
+

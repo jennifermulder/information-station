@@ -1,3 +1,4 @@
+
 const path = require('path'); //new to add css **working**
 const express = require('express');
 const routes = require('./controllers'); //new changed file name api endpoints ARE working
@@ -31,7 +32,6 @@ app.use(session(sess));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //When I moved this up here it worked not sure why
@@ -42,9 +42,12 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 //turn on routes
+
 app.use(routes);
 
 //turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
-});
+
+  app.listen(PORT, () => console.log('Now listening at http://localhost:3001'));
+}).catch(err => console.log(err));
+
