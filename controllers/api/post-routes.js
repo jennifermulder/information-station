@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { Post, User, Comment } = require('../../models');
-// const { Post, User, Business } = require('../../models');
+const { Post, User, /*Comment*/ Business } = require('../../models');
 
 const sequelize = require('../../config/connection');
 // GET all posts
@@ -16,7 +15,7 @@ router.get('/', (req, res) => {
             'created_at'
         ],
         order: [['created_at', 'DESC']],
-        
+
         include: [
             {
                 model: User,

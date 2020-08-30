@@ -1,15 +1,18 @@
 {{!-- pulled out of homepage --}}
 <article class="post">
   <div class="title">
-    <a href="{{post_url}}" target="_blank">{{title}}</a>
-    <span>({{format_url post_url}})</span>
+    <a href="/post/{{id}}">{{title}}</a>
+    <h5>Created by {{user.username}} on {{format_date created_at}}</h5>
+    <span>{{post_text}}</span>
+    {{!-- <a href="{{post_url}}" target="_blank">{{title}}</a>
+    <span>({{format_url post_url}})</span> --}}
   </div>
-  <div class="meta">
-    {{!-- {{vote_count}} point(s) by {{user.username}}  --}}
-    {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}}
-    on {{format_date created_at}}
-    |
-    {{!-- <a href="/post/{{id}}">{{comments.length}} comment(s)</a>--}}
-    <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
-  </div>
+  {{!-- <div class="meta">
+    {{!-- no votes right now --}}
+  {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}}
+  on {{format_date created_at}}
+  |
+  {{!-- no comments right now --}}
+  <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+  </div> --}}
 </article>
