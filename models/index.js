@@ -3,8 +3,8 @@ const User = require("./User");
 const Post = require("./Post");
 // const Vote = require('./Vote');
 const Comment = require('./Comment');
-// const Business = require('./Business');
 // const Category = require('./Category');
+const Business = require('./Business');
 
 // create associations
 //user can have many models associated to it
@@ -45,6 +45,12 @@ User.hasMany(Post, {
 //   foreignKey: 'post_id'
 // });
 
+//Post only belongs to user
+Post.belongsTo(User, {
+  foreignKey: "user_id",
+  onDelete: "cascade",
+});
+
 //BUSINESS
 //user can have many models associated to it
 User.hasMany(Business, {
@@ -68,5 +74,20 @@ Post.belongsTo(Business, {
 //   foreignKey: "category_id",
 // });
 
+Comment.belongsTo(User,{
+  foreignKey: 'user_id'
+});
+Comment.belongsTo(Post, {
+  foreignKey: 'post_id'
+});
+
+User.hasMany(Comment,{
+  foreignKey: "user_id"
+});
+
+Post.hasMany(Comment,{
+  foreignKey: "post_id"
+})
+
 //exporting object with user model as a property
-module.exports = { User, Post, Business };
+module.exports = { User, Post, Business, Comment};

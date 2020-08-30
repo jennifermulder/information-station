@@ -13,14 +13,14 @@ router.get('/', (req, res) => {
             
         ],
         order: [['created_at', 'DESC']],
-
         include: [
             {
                 model: Post,
                 attributes: [
                     'title',
                     'post_text',
-                    
+
+                    'safety_measurs'
                 ]
             }
         ]
@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
 });
 
 
-// GET a Single Post
+// GET a Single Business
 router.get('/:id', (req, res) => {
     Business.findOne({
         where: {
