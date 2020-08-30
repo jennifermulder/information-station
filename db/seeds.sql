@@ -1,6 +1,6 @@
 INSERT INTO user (username, email, password)
 VALUES 
-  ("Lernantino", "Lernantino@gmail.com", “password1234”);
+  ("Lernantino", "Lernantino@gmail.com", "password1234");
 
 INSERT INTO post (title, post_text, user_id, business_id, created_at, updated_at)
 VALUES 

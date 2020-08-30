@@ -1,9 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <title>Information Station</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
@@ -12,16 +16,52 @@
   <div class="wrapper">
     <header>
       <h1>
-        <a href="/">Information Station</a>
+        <h5 href="/">Information Station</h5>
       </h1>
+      <nav>
+          
+        {{#if loggedIn}}
+        <a href="/dashboard">dashboard</a>
+        <button id="logout" class="btn-no-style">logout</button>
+        {{else}}
+        <a href="/login">login</a>
+        {{/if}}
+      </nav>
+      
     </header>
     <main>
       {{{ body }}}
     </main>
     <footer>
+
+        <footer class="page-footer light-blue">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="orange-text">Information Station</h5>
+            <h6 class="grey-text text-lighten-4">
+            </h6>
+          </div>
+          <div class="col l3 s12">
+            <h6 class="white-text">© 2020 Copyright - Information Station <a class="orange-text text-lighten-3" href="copyright.html">Privacy Policy</a></h6>
+          </div>
+          <div class="col l3 s12">
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+      Bloggers are always welcome!!
+    </footer>
+    
+  </div>
+  {{#if loggedIn}}
+  <script src="/javascript/logout.js"></script>
+  {{/if}}
+
       Thanks for visiting!
     </footer>
   </div>
+
 
 </body>
 
