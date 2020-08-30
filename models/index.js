@@ -1,53 +1,22 @@
-const router = require('express').Router();
-const userRoutes = require('./user-routes.js');
-const postRoutes = require('./post-routes');
-const businessRoutes= require('/business-routes')
-// const commentRoutes = require('./comment-routes'); ******NO COMMENTS AT THIS TIME*****
-const homeRoutes = require('./home-routes.js');
-router.use('/', homeRoutes);
-router.use('/businesses', businessRoutes);
-router.use('/users', userRoutes);
-router.use('/posts', postRoutes);
-// router.use('/comments', commentRoutes);
-module.exports = router;
+//collecting from the user model and exporting user data
+const User = require("./User");
+const Post = require("./Post");
+const Comment = require('./Comment');
+const Business = require('./Business');
+
+// create associations
+//user can have many models associated to it
+User.hasMany(Post, {
+  foreignKey: "user_id",
+});
+
+//Post only belongs to user
+Post.belongsTo(User, {
+  foreignKey: "user_id",
+  onDelete: "cascade",
+});
 
 
-
-
-
-
-// //to see total number of votes on a post
-// Vote.belongsTo(Post, {
-//   foreignKey: 'post_id'
-// });
-
-// User.hasMany(Vote, {
-//   foreignKey: 'user_id'
-// });
-
-// Post.hasMany(Vote, {
-//   foreignKey: 'post_id'
-// });
-
-// ******CURRENTLY NO COMMENTS********
-
-//a comment can only have one user
-// Comment.belongsTo(User, {
-//   foreignKey: 'user_id'
-// });
-
-// //a comment can only have one post
-// Comment.belongsTo(Post, {
-//   foreignKey: 'post_id'
-// });
-
-// User.hasMany(Comment, {
-//   foreignKey: 'user_id'
-// });
-
-// Post.hasMany(Comment, {
-//   foreignKey: 'post_id'
-// });
 
 //BUSINESS
 //user can have many models associated to it
@@ -66,6 +35,20 @@ Post.belongsTo(Business, {
   onDelete: "cascade",
 });
 
+Comment.belongsTo(User,{
+  foreignKey: 'user_id'
+});
+Comment.belongsTo(Post, {
+  foreignKey: 'post_id'
+});
+
+User.hasMany(Comment,{
+  foreignKey: "user_id"
+});
+
+Post.hasMany(Comment,{
+  foreignKey: "post_id"
+})
 
 //exporting object with user model as a property
-module.exports = { User, Post, Business };
+module.exports = { User, Post, Business, Comment};

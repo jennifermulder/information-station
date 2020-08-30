@@ -1,6 +1,11 @@
 <ol class="post-list">
   {{#each posts as |post|}}
   <li>
+
+    <article class="post">
+      POST {{post.title}}
+    </article>
+
     {{> post-info post }}
     {{!-- pulled in from post-info.handlebars class "post"
     <article class="post">
@@ -15,6 +20,7 @@
         <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
       </div>
     </article> --}}
+
   </li>
   {{/each}}
 </ol>
