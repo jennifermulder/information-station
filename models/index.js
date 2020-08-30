@@ -2,7 +2,7 @@
 const User = require("./User");
 const Post = require("./Post");
 // const Vote = require('./Vote');
-const Comment = require('./Comment');
+// const Comment = require('./Comment');
 // const Category = require('./Category');
 const Business = require('./Business');
 
@@ -74,20 +74,6 @@ Post.belongsTo(Business, {
 //   foreignKey: "category_id",
 // });
 
-Comment.belongsTo(User,{
-  foreignKey: 'user_id'
-});
-Comment.belongsTo(Post, {
-  foreignKey: 'post_id'
-});
-
-User.hasMany(Comment,{
-  foreignKey: "user_id"
-});
-
-Post.hasMany(Comment,{
-  foreignKey: "post_id"
-})
 
 //exporting object with user model as a property
-module.exports = { User, Post, Business, Comment};
+module.exports = { User, Post, Business, /*Comment*/ };

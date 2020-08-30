@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Business } = require('../models');
+
+
 router.get('/', (req, res) => {
     console.log(req.session);
     Post.findAll({
@@ -17,10 +19,10 @@ router.get('/', (req, res) => {
         include: [
             {
                 model: Business,
-                attributes: ['name', 
-                'business_url', 
-                'user_id', 
-                'created_at'],
+                attributes: ['name',
+                    'business_url',
+                    'user_id',
+                    'created_at'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -52,6 +54,16 @@ router.get('/login', (req, res) => {
     }
     res.render('login');
 });
+
+router.get('/signup', (req, res) => {
+    if (req.session.loggedIn) {
+        //redirect to the homepage if a session exists
+        res.redirect('/');
+        return;
+    }
+    res.render('signup');
+});
+
 router.get('/post/:id', (req, res) => {
     Post.findOne({
         where: {
@@ -71,10 +83,10 @@ router.get('/post/:id', (req, res) => {
             {
                 model: Business,
                 attributes: [
-                    'name', 
-                'Business_url',
-                'safety_measures'
-            ],
+                    'name',
+                    'Business_url',
+                    'safety_measures'
+                ],
             },
             {
                 model: User,
