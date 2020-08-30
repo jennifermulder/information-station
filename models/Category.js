@@ -2,10 +2,10 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // create our Business model
-class Business extends Model { }
+class Category extends Model { }
 
 // create fields/columns for Business model
-Business.init(
+Category.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -17,14 +17,7 @@ Business.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    business_url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isURL: true
-      }
-    },
-    //to show who added the business? might not need this
+    //to show who added the category? might not need this
     user_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -32,27 +25,13 @@ Business.init(
         key: 'id'
       }
     },
-    category_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'category',
-        key: 'id'
-      }
-    },
-    safety_measures: {
-      type: DataTypes.BOOLEAN,
-      // references: {
-      //   model: 'safety',
-      //   key: 'id'
-      // }
-    }
   },
   {
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: 'business'
+    modelName: 'category'
   }
 );
 
-module.exports = Business;
+module.exports = Category;
