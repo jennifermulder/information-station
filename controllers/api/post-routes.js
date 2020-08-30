@@ -1,16 +1,19 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
-const sequelize = require('../../config/connection');
+// const { Post, User, Business } = require('../../models');
 
+const sequelize = require('../../config/connection');
 // GET all posts
 router.get('/', (req, res) => {
     Post.findAll({
         attributes: [
             'id',
             // 'post_url',
+
+            // 'post_text',
+
             'title',
             'created_at'
-            
         ],
         order: [['created_at', 'DESC']],
         
@@ -18,8 +21,12 @@ router.get('/', (req, res) => {
             {
                 model: User,
                 attributes: ['username']
-            }
-        ]
+            },
+            {
+                model: Business,
+                attributes: ['name']
+            },
+        ],
     })
         .then(dbPostData => res.json(dbPostData))
         .catch(err => {
@@ -27,8 +34,6 @@ router.get('/', (req, res) => {
             res.status(500).json(err);
         });
 });
-
-
 // GET a Single Post
 router.get('/:id', (req, res) => {
     Post.findOne({
@@ -37,7 +42,6 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
-            
             'title',
             'post_text',
             'created_at'
@@ -65,8 +69,6 @@ router.get('/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
-
-
 // Create a Post
 router.post('/', (req, res) => {
     // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
@@ -75,7 +77,7 @@ router.post('/', (req, res) => {
         post_text: req.body.post_text,
         user_id: req.body.user_id,
         business_id: req.body.business_id,
-        safety_measures: req.body.safety_measures
+        safetyMeasures: req.body.safetyMeasures
     })
         .then(dbPostData => res.json(dbPostData))
         .catch(err => {
@@ -83,8 +85,6 @@ router.post('/', (req, res) => {
             res.status(500).json(err);
         });
 });
-
-
 // Update a Post's Title
 router.put('/:id', (req, res) => {
     Post.update(
@@ -109,7 +109,6 @@ router.put('/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
-
 // Delete a Post
 router.delete('/:id', (req, res) => {
     Post.destroy({
@@ -129,5 +128,4 @@ router.delete('/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
-
 module.exports = router;

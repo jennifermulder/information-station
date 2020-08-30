@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
                 attributes: [
                     'title',
                     'post_text',
+
                     'safety_measurs'
                 ]
             }
@@ -40,9 +41,10 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
-            
-            'title',
-            'post_text',
+
+            'name',
+            'business_url',
+
             'created_at'
         ],
         include: [
@@ -54,6 +56,11 @@ router.get('/:id', (req, res) => {
                     'post_text',
                     'safety_measurs'
                 ]
+
+            },
+            {
+                model: User,
+                attributes: ['username']
             }
         ]
     })
