@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 //connects session to database
+const helpers = require('./utils/helper')
 const SequelizeStore = require ('connect-session-sequelize')(session.Store);
 
 const sequelize = require('./config/connection');
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-const hbs = exphbs.create({});
+const hbs = exphbs.create({ helpers });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 

@@ -7,9 +7,11 @@ router.get('/', (req, res) => {
     Post.findAll({
         attributes: [
             'id',
-            'post_url',
             'title',
+            'post_text',
+            'safety_measures',
             'created_at'
+
             
         ],
         order: [['created_at', 'DESC']],
@@ -72,7 +74,7 @@ router.post('/', (req, res) => {
     Post.create({
         title: req.body.title,
         post_text: req.body.post_text,
-        user_id: req.body.user_id,
+        user_id: req.session.user_id,
         business_id: req.body.business_id,
         safety_measures: req.body.safety_measures
     })
