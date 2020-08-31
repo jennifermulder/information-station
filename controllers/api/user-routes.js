@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
             res.status(500).json(err);
         });
 });
+
 // GET /api/users/1
 router.get('/:id', (req, res) => {
     User.findOne({
@@ -24,7 +25,8 @@ router.get('/:id', (req, res) => {
         include: [
             {
                 model: Post,
-                attributes: ['id', 'title', 'created_at']
+
+                attributes: ['id', 'title', 'post_text', 'created_at']
 
             },
         ]

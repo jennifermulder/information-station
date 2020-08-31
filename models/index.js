@@ -1,9 +1,9 @@
 //collecting from the user model and exporting user data
 const User = require("./User");
 const Post = require("./Post");
+const Category = require('./Category');
 // const Vote = require('./Vote');
 // const Comment = require('./Comment');
-// const Category = require('./Category');
 const Business = require('./Business');
 
 // create associations
@@ -11,6 +11,37 @@ const Business = require('./Business');
 User.hasMany(Post, {
   foreignKey: "user_id",
 });
+
+//Post only belongs to user
+Post.belongsTo(User, {
+  foreignKey: "user_id",
+  onDelete: "cascade",
+});
+
+// //a comment can only have one user
+// Comment.belongsTo(User, {
+//   foreignKey: 'user_id'
+// });
+// //when user is queried, can see all posts they voted on 
+// User.belongsToMany(Post, {
+//   through: Vote,
+//   //name of the vote model when queried
+//   as: 'voted_posts',
+//   //foreign key in vote
+//   foreignKey: 'user_id'
+// });
+
+// //a post is queried can see all users that voted on it
+// Post.belongsToMany(User, {
+//   through: Vote,
+//   as: 'voted_posts',
+//   //foreign key in vote
+//   foreignKey: 'post_id'
+// });
+
+// Vote.belongsTo(User, {
+//   foreignKey: 'user_id'
+// });
 
 // //to see total number of votes on a post
 // Vote.belongsTo(Post, {
@@ -24,8 +55,6 @@ User.hasMany(Post, {
 // Post.hasMany(Vote, {
 //   foreignKey: 'post_id'
 // });
-
-// ******CURRENTLY NO COMMENTS********
 
 //a comment can only have one user
 // Comment.belongsTo(User, {
@@ -45,17 +74,11 @@ User.hasMany(Post, {
 //   foreignKey: 'post_id'
 // });
 
-//Post only belongs to user
-Post.belongsTo(User, {
-  foreignKey: "user_id",
-  onDelete: "cascade",
-});
-
 //BUSINESS
 //user can have many models associated to it
-User.hasMany(Business, {
-  foreignKey: "user_id",
-});
+// User.hasMany(Business, {
+//   foreignKey: "user_id",
+// });
 
 //business can have many posts associated to it
 Business.hasMany(Post, {
@@ -68,12 +91,15 @@ Post.belongsTo(Business, {
   onDelete: "cascade",
 });
 
-// //CATEGORY
-// //user can have many models associated to it
-// Category.hasMany(Business, {
-//   foreignKey: "category_id",
-// });
+Category.hasMany(Business, {
+  foreignKey: "category_id"
+})
+
+Business.belongsTo(Category, {
+  foreignKey: "category_id"
+
+})
 
 
 //exporting object with user model as a property
-module.exports = { User, Post, Business, /*Comment*/ };
+module.exports = { User, Post, Business, Category};

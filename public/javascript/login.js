@@ -1,3 +1,4 @@
+  
 async function signupFormHandler(event) {
   event.preventDefault();
 
@@ -19,7 +20,7 @@ async function signupFormHandler(event) {
     });
     // check the response status
     if (response.ok) {
-      document.location.replace('/dashboard');
+      document.location.replace('/');
     } else {
       alert(response.statusText);
     }
@@ -44,7 +45,7 @@ async function loginFormHandler(event) {
 
     if (response.ok) {
       //when the user logs in they are automatically redirected
-      document.location.replace('/dashboard');
+      document.location.replace('/');
       debugger
       idleLogout();
     } else {

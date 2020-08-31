@@ -24,28 +24,13 @@ Business.init(
         isURL: true
       }
     },
-    //to show who added the business? might not need this
-    user_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'user',
-        key: 'id'
-      }
-    },
-    category_id: {
+    category_id:{
       type: DataTypes.INTEGER,
       references: {
         model: 'category',
         key: 'id'
       }
     },
-    safety_measures: {
-      type: DataTypes.BOOLEAN,
-      // references: {
-      //   model: 'safety',
-      //   key: 'id'
-      // }
-    }
   },
   {
     sequelize,
