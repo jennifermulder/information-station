@@ -17,15 +17,7 @@ Category.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    //to show who added the category? might not need this
-    // user_id: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: 'user',
-    //     key: 'id'
-    //   }
-    // },
-  },
+ },
   {
     sequelize,
     freezeTableName: true,

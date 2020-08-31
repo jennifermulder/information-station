@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
                 model: Category,
                 attributes: [
                     'name'
+      
                 ]
             }
         ]
@@ -30,7 +31,7 @@ router.get('/', (req, res) => {
 });
 
 
-// GET a Single Post
+// GET a Single Business
 router.get('/:id', (req, res) => {
     Business.findOne({
         where: {
@@ -38,6 +39,7 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
+
             'name',
             'business_url'
         ],
@@ -50,7 +52,9 @@ router.get('/:id', (req, res) => {
                     'post_text',
                     'safety_measures'
                 ]
-            }
+
+            },
+           
         ]
     })
         .then(dbBusinessData => {
