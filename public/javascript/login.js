@@ -1,3 +1,4 @@
+  
 async function signupFormHandler(event) {
   event.preventDefault();
 
@@ -19,7 +20,7 @@ async function signupFormHandler(event) {
     });
     // check the response status
     if (response.ok) {
-      document.location.replace('/dashboard');
+      document.location.replace('/');
     } else {
       alert(response.statusText);
     }
@@ -44,7 +45,7 @@ async function loginFormHandler(event) {
 
     if (response.ok) {
       //when the user logs in they are automatically redirected
-      document.location.replace('/dashboard');
+      document.location.replace('/');
       debugger
       idleLogout();
     } else {
@@ -53,6 +54,8 @@ async function loginFormHandler(event) {
   }
 }
 
-document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+var loginform = document.querySelector('.login-form')
+if (loginform) loginform.addEventListener('submit', loginFormHandler);
 
-document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
+var signupform = document.querySelector('.signup-form')
+if (signupform) signupform.addEventListener('submit', signupFormHandler);
