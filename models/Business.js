@@ -31,21 +31,6 @@ Business.init(
         key: 'id'
       }
     },
-    //to show who added the business? might not need this
-    // user_id: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: 'user',
-    //     key: 'id'
-    //   }
-    // },
-    // safety_measures: {
-    //   type: DataTypes.BOOLEAN,
-    //   // references: {
-    //   //   model: 'safety',
-    //   //   key: 'id'
-    //   // }
-    // }
   },
   {
     sequelize,
