@@ -1,10 +1,11 @@
-
 const router = require('express').Router();
-const apiRoutes = require('./api');
+const userRoutes = require('./user-routes.js');
+const postRoutes = require('./post-routes');
+const businessRoutes= require('/business-routes')
+// const commentRoutes = require('./comment-routes'); ******NO COMMENTS AT THIS TIME*****
 const homeRoutes = require('./home-routes.js');
-const dashboardRoutes = require('./dashboard-routes.js');
-
 router.use('/', homeRoutes);
+
 router.use('/api', apiRoutes);
 router.use('/dashboard', dashboardRoutes);
 
@@ -14,4 +15,3 @@ router.use((req, res) => {
 
 module.exports = router;
 
-//MERGE THIS FILE INTO DEV
