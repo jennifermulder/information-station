@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User, Business } = require('../../models');
+const { Post, User, Business, Category } = require('../../models');
 const sequelize = require('../../config/connection');
 
 // GET all posts
@@ -13,16 +13,15 @@ router.get('/', (req, res) => {
             
         ],
         order: [['created_at', 'DESC']],
-        // include: [
-        //     {
-        //         model: Post,
-        //         attributes: [
-        //             'title',
-        //             'post_text',
-        //             'safety_measurs'
-        //         ]
-        //     }
-        // ]
+        include: [
+            {
+                model: Category,
+                attributes: [
+                    'name'
+      
+                ]
+            }
+        ]
     })
         .then(dbBusinessData => res.json(dbBusinessData))
         .catch(err => {
@@ -32,7 +31,7 @@ router.get('/', (req, res) => {
 });
 
 
-// GET a Single Post
+// GET a Single Business
 router.get('/:id', (req, res) => {
     Business.findOne({
         where: {
@@ -40,10 +39,9 @@ router.get('/:id', (req, res) => {
         },
         attributes: [
             'id',
-            
-            'title',
-            'post_text',
-            'created_at'
+
+            'name',
+            'business_url'
         ],
         include: [
             {
@@ -52,14 +50,16 @@ router.get('/:id', (req, res) => {
                 [
                     'title',
                     'post_text',
-                    'safety_measurs'
+                    'safety_measures'
                 ]
-            }
+
+            },
+           
         ]
     })
         .then(dbBusinessData => {
             if (!dbBusinessData) {
-                res.status(404).json({ message: 'No post found with this id' });
+                res.status(404).json({ message: 'No Business found with this id' });
                 return;
             }
             res.json(dbBusinessData);
@@ -77,8 +77,7 @@ router.post('/', (req, res) => {
     Business.create({
         name: req.body.name,
         business_url: req.body.business_url,
-        user_id: req.body.user_id,
-        safety_measures: req.body.safety_measures
+        category_id: req.body.category_id
     })
         .then(dbBusinessData => res.json(dbBusinessData))
         .catch(err => {
@@ -102,7 +101,7 @@ router.put('/:id', (req, res) => {
     )
         .then(dbBusinessData => {
             if (!dbBusinessData) {
-                res.status(404).json({ message: 'No post found with this id' });
+                res.status(404).json({ message: 'No Business found with this id' });
                 return;
             }
             res.json(dbBusinessData);
@@ -122,7 +121,7 @@ router.delete('/:id', (req, res) => {
     })
         .then(dbBusinessData => {
             if (!dbBusinessData) {
-                res.status(404).json({ message: 'No post found with this id' });
+                res.status(404).json({ message: 'No Business found with this id' });
                 return;
             }
             res.json(dbBusinessData);
