@@ -4,9 +4,10 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 //connects session to database
 const helpers = require('./utils/helper')
-const SequelizeStore = require ('connect-session-sequelize')(session.Store);
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sequelize = require('./config/connection');
+//bwvi
 const routes = require('./controllers');
 
 const PORT = process.env.PORT || 3002;
